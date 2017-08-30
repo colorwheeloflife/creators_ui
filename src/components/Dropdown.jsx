@@ -9,7 +9,8 @@ export default class Dropdown extends Component {
     super(props);
 
     this.state = {
-      listVisible: false
+      listVisible: false,
+      selected: props.selected
     }
   }
 
@@ -23,18 +24,21 @@ export default class Dropdown extends Component {
   }
 
   handleSelect = (item) => {
-    this.props.selected = item;
-    window.alert(`You have selected: ${item}`);
+    this.setState({
+      selected: item,
+      listVisible: false
+    });
+    console.log(`You have selected: ${item.name}`);
   }
 
   renderListItems = () => {
     var items = [];
-    this.props.list.map(function(item) {
+    this.props.list.map((item) => {
       items.push(
         <div
           className="dropdown_list_item"
           key={item.name}
-          { /* onClick={this.handleSelect(item)} */ }
+          onClick={ event => this.handleSelect(item)}
           >
           {item.name}
         </div>)
@@ -56,7 +60,7 @@ export default class Dropdown extends Component {
         <div
           className={ "dropdown_display " + baseClass }
           onClick={this.handleOpen} >
-          { selected.name }
+          { this.state.selected.name }
         </div>
         <div className={ "dropdown_list " + (this.state.listVisible === true ? 'show ' : 'hidden ') + baseClass }>
           {this.renderListItems()}
@@ -65,3 +69,10 @@ export default class Dropdown extends Component {
     )
   }
 }
+
+
+/*
+
+
+
+*/

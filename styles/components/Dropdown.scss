@@ -101,7 +101,8 @@ $border-color: #DDD;
   border: 1px solid $border-color;
   border-top: none;
 
-  &.hover {
+  &:hover {
     background: #F0F0F0;
+    cursor: pointer;
   }
 }
