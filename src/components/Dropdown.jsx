@@ -34,6 +34,7 @@ export default class Dropdown extends Component {
         <div
           className="dropdown_list_item"
           key={item.name}
+          { /* onClick={this.handleSelect(item)} */ }
           >
           {item.name}
         </div>)
@@ -64,10 +65,3 @@ export default class Dropdown extends Component {
     )
   }
 }
-
-
-/*
-
-onClick={this.handleSelect(item)}
-
-*/
