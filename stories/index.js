@@ -2,7 +2,7 @@ import React from 'react';
 
 import { storiesOf } from '@storybook/react';
 
-import { Button } from '../src/index.js';
+import { Button, Dropdown } from '../src/index.js';
 
 storiesOf('Button/General', module)
   .add('basic', () => <Button>Basic</Button>);
@@ -18,36 +18,14 @@ storiesOf('Button/Size', module)
 
 
 
-import { Dropdown } from '../src/index.js';
-
-var colors = [{
-    name: 'blue'
-  }, {
-    name: 'green'
-  }, {
-    name: 'yellow'
-  }, {
-    name: 'orange'
-  }, {
-    name: 'red'
-  }, {
-    name: 'purple'
-  }
-];
+const dropdown = {
+  items: ['blue', 'green', 'yellow', 'orange', 'red', 'purple'].map(item => ({ name: item })),
+  initial: 0
+};
 
 storiesOf('Dropdown/General', module)
-  .add('basic', () => <Dropdown list={colors} selected={colors[0]}>Basic</Dropdown>);
+  .add('basic', () => <Dropdown { ...dropdown }>Basic</Dropdown>);
 
 storiesOf('Dropdown/Size', module)
-  .add('small', () => <Dropdown size='small' list={colors} selected={colors[0]}>Small</Dropdown>)
-  .add('large', () => <Dropdown size='large' list={colors} selected={colors[0]}>Large</Dropdown>);
-
-
-
-/*
-
-
-
-var colors = ['blue', 'green', 'yellow', 'orange', 'red', 'purple'];
-
-*/
+  .add('small', () => <Dropdown size='small' { ...dropdown }>Small</Dropdown>)
+  .add('large', () => <Dropdown size='large' { ...dropdown }>Large</Dropdown>);

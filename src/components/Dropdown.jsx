@@ -4,75 +4,73 @@ import PropTypes from 'prop-types';
 import Styler from '../lib/styler';
 
 export default class Dropdown extends Component {
+  static propTypes = {
+    size: PropTypes.oneOf(['small', 'large']),
+    items: PropTypes.array.isRequired,
+    initial: PropTypes.number
+  };
 
   constructor(props) {
     super(props);
 
     this.state = {
-      listVisible: false,
-      selected: props.selected
+      open: false,
+      selected: props.initial || 0
     }
   }
 
-  static propTypes = {
-    size: PropTypes.oneOf(['small', 'large'])
-  };
-
   handleOpen = () => {
-    var listVisible = this.state.listVisible;
-    this.setState({ listVisible: !listVisible });
+    this.setState({ open: !this.state.open });
   }
 
-  handleSelect = (item) => {
+  handleSelect = (index) => {
     this.setState({
-      selected: item,
-      listVisible: false
+      selected: index,
+      open: false
     });
-    console.log(`You have selected: ${item.name}`);
   }
-
-  renderListItems = () => {
-    var items = [];
-    this.props.list.map((item) => {
-      items.push(
-        <div
-          className="dropdown_list_item"
-          key={item.name}
-          onClick={ event => this.handleSelect(item)}
-          >
-          {item.name}
-        </div>)
-    });
-    return items;
-  }
-
-
 
   render() {
-    const { selected, size, children } = this.props;
+    const { open, selected } = this.state;
+    const { items, size, children } = this.props;
 
-    const baseClass = Styler(
+    const dropdownClass = Styler(
+      'dropdown',
       size
     );
 
-    return (
-      <div className={ "dropdown_container " + baseClass }>
+    const headerClass = Styler(
+      'header',
+      size
+    );
+
+    const itemsClass = Styler(
+      open ? null : 'hidden',
+      size
+    );
+
+    const dropdownItems = items.map((item, index) => {
+      return (
         <div
-          className={ "dropdown_display " + baseClass }
-          onClick={this.handleOpen} >
-          { this.state.selected.name }
+          className="item"
+          key={ item.name }
+          onClick={ event => this.handleSelect(index) }>
+          { item.name }
         </div>
-        <div className={ "dropdown_list " + (this.state.listVisible === true ? 'show ' : 'hidden ') + baseClass }>
-          {this.renderListItems()}
+      )
+    });
+
+    return (
+      <div className={ dropdownClass }>
+        <div
+          className={ headerClass }
+          onClick={ this.handleOpen } >
+          { items[selected].name }
+        </div>
+        <div className={ itemsClass }>
+          { dropdownItems }
         </div>
       </div>
     )
   }
 }
-
-
-/*
-
-
-
-*/
