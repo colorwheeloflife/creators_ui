@@ -2,7 +2,7 @@ import React from 'react';
 
 import { storiesOf } from '@storybook/react';
 
-import { Button, Dropdown, RadioGroup } from '../src/index.js';
+import { Button, CheckboxGroup, Dropdown, RadioGroup } from '../src/index.js';
 
 storiesOf('Button/General', module)
   .add('basic', () => <Button>Basic</Button>);
@@ -32,7 +32,6 @@ storiesOf('Dropdown/Size', module)
 
 
 
-
 const radioGroup = {
   items: ['blue', 'green', 'yellow', 'orange', 'red', 'purple'].map(item => ({ name: item })),
   initial: 0
@@ -50,3 +49,24 @@ storiesOf('RadioGroup/Orientation', module)
 storiesOf('RadioGroup/Size', module)
   .add('small', () => <RadioGroup size='small' { ...radioGroup }>Small</RadioGroup>)
   .add('large', () => <RadioGroup size='large' { ...radioGroup }>Large</RadioGroup>);
+
+
+
+
+const checkboxGroup = {
+  items: ['blue', 'green', 'yellow', 'orange', 'red', 'purple'].map(item => ({ name: item })),
+  initial: 0
+};
+
+storiesOf('CheckboxGroup/General', module)
+  .add('basic', () => <CheckboxGroup { ...checkboxGroup }>Basic</CheckboxGroup>);
+
+storiesOf('CheckboxGroup/Labelled', module)
+  .add('label', () => <CheckboxGroup label="Label"{ ...checkboxGroup }>Labelled</CheckboxGroup>);
+
+storiesOf('CheckboxGroup/Orientation', module)
+  .add('horizontal', () => <CheckboxGroup orientation='horizontal' { ...checkboxGroup }>Horizontal</CheckboxGroup>);
+
+storiesOf('CheckboxGroup/Size', module)
+  .add('small', () => <CheckboxGroup size='small' { ...checkboxGroup }>Small</CheckboxGroup>)
+  .add('large', () => <CheckboxGroup size='large' { ...checkboxGroup }>Large</CheckboxGroup>);

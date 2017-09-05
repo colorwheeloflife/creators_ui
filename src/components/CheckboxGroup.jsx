@@ -3,33 +3,41 @@ import PropTypes from 'prop-types';
 
 import Styler from '../lib/styler';
 
-export default class RadioGroup extends Component {
+export default class CheckboxGroup extends Component {
   static propTypes = {
-    size: PropTypes.oneOf(['small', 'large']),
-    label: PropTypes.string,
     items: PropTypes.array.isRequired,
-    initial: PropTypes.number,
-    orientation: PropTypes.oneOf(['horizontal'])
+    label: PropTypes.string,
+    orientation: PropTypes.oneOf(['horizontal']),
+    size: PropTypes.oneOf(['small', 'large']),
   };
 
   constructor(props) {
     super(props);
 
     this.state = {
-      selected: props.initial || null
+      selected: []
     }
   }
 
   handleSelect = (index) => {
-    this.setState({ selected: index });
+    var selected = this.state.selected;
+
+    if (selected.indexOf(index) > -1) {
+      var placement = selected.indexOf(index);
+      selected.splice(placement, 1);
+    } else {
+      selected.push(index);
+    }
+
+    this.setState({ selected });
   }
 
   render() {
     const { selected } = this.state;
     const { label, items, size, orientation, children } = this.props;
 
-    const radioGroupClass = Styler(
-      'radio_group',
+    const checkboxGroupClass = Styler(
+      'checkbox_group',
       size
     );
 
@@ -51,17 +59,17 @@ export default class RadioGroup extends Component {
       size
     );
 
-    const radioItems = items.map((item, index) => {
+    const checkboxItems = items.map((item, index) => {
       return (
         <div
           className={ itemClass }
           key={item.name}>
           <input
-            className="radio"
+            className="checkbox"
             name={item.name}
             value={index}
-            type="radio"
-            checked={selected === index}
+            type="checkbox"
+            checked={selected.indexOf(index) > -1}
             onChange={ event => this.handleSelect(index) }/>
           <label
             className="name"
@@ -74,12 +82,12 @@ export default class RadioGroup extends Component {
     });
 
     return (
-      <div className={ radioGroupClass }>
+      <div className={ checkboxGroupClass }>
         <div className={ labelClass }>
           { label }
         </div>
         <div className={ itemsClass }>
-          { radioItems }
+          { checkboxItems }
         </div>
       </div>
     )
