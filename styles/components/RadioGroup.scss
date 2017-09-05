@@ -9,11 +9,44 @@ $font-size: 1rem;
   line-height: ($font-size * 2);
   padding: 0.5rem;
 
+  &.small {
+    font-size: ($font-size * 0.8);
+    line-height: ($font-size * 1.6);
+  }
+
+  &.large {
+    font-size: ($font-size * 1.2);
+    line-height: ($font-size * 2.4);
+  }
+
+  .label {
+    font-size: ($font-size * 1.1);
+    font-weight: 400;
+    padding-left: 3px;
+
+    &.small {
+      font-size: ($font-size * 0.88);
+    }
+
+    &.large {
+      font-size: ($font-size * 1.32);
+    }
+  }
+
   .items {
 
+    &.horizontal {
+      display: flex;
+    }
+
     .item {
+
       &:hover {
         color: grey;
+      }
+
+      &.horizontal {
+        margin-right: 10px;
       }
 
       .radio {

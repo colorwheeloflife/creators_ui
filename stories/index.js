@@ -41,6 +41,12 @@ const radioGroup = {
 storiesOf('RadioGroup/General', module)
   .add('basic', () => <RadioGroup { ...radioGroup }>Basic</RadioGroup>);
 
+storiesOf('RadioGroup/Labelled', module)
+  .add('label', () => <RadioGroup label="Label"{ ...radioGroup }>Labelled</RadioGroup>);
+
+storiesOf('RadioGroup/Orientation', module)
+  .add('horizontal', () => <RadioGroup orientation='horizontal' { ...radioGroup }>Horizontal</RadioGroup>);
+
 storiesOf('RadioGroup/Size', module)
   .add('small', () => <RadioGroup size='small' { ...radioGroup }>Small</RadioGroup>)
   .add('large', () => <RadioGroup size='large' { ...radioGroup }>Large</RadioGroup>);

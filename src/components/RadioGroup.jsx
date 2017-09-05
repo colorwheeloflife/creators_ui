@@ -8,7 +8,8 @@ export default class RadioGroup extends Component {
     size: PropTypes.oneOf(['small', 'large']),
     label: PropTypes.string,
     items: PropTypes.array.isRequired,
-    initial: PropTypes.number
+    initial: PropTypes.number,
+    orientation: PropTypes.oneOf(['horizontal'])
   };
 
   constructor(props) {
@@ -25,7 +26,7 @@ export default class RadioGroup extends Component {
 
   render() {
     const { selected } = this.state;
-    const { label, items, size, children } = this.props;
+    const { label, items, size, orientation, children } = this.props;
 
     const radioGroupClass = Styler(
       'radio_group',
@@ -33,19 +34,27 @@ export default class RadioGroup extends Component {
     );
 
     const labelClass = Styler(
+      'label',
       label ? null : 'hidden',
       size
     );
 
     const itemsClass = Styler(
       'items',
+      orientation,
+      size
+    );
+
+    const itemClass = Styler(
+      'item',
+      orientation,
       size
     );
 
     const radioItems = items.map((item, index) => {
       return (
         <div
-          className="item"
+          className={ itemClass }
           key={item.name}>
           <input
             className="radio"
