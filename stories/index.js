@@ -2,7 +2,7 @@ import React from 'react';
 
 import { storiesOf } from '@storybook/react';
 
-import { Button, Dropdown } from '../src/index.js';
+import { Button, Dropdown, RadioGroup } from '../src/index.js';
 
 storiesOf('Button/General', module)
   .add('basic', () => <Button>Basic</Button>);
@@ -29,3 +29,18 @@ storiesOf('Dropdown/General', module)
 storiesOf('Dropdown/Size', module)
   .add('small', () => <Dropdown size='small' { ...dropdown }>Small</Dropdown>)
   .add('large', () => <Dropdown size='large' { ...dropdown }>Large</Dropdown>);
+
+
+
+
+const radioGroup = {
+  items: ['blue', 'green', 'yellow', 'orange', 'red', 'purple'].map(item => ({ name: item })),
+  initial: 0
+};
+
+storiesOf('RadioGroup/General', module)
+  .add('basic', () => <RadioGroup { ...radioGroup }>Basic</RadioGroup>);
+
+storiesOf('RadioGroup/Size', module)
+  .add('small', () => <RadioGroup size='small' { ...radioGroup }>Small</RadioGroup>)
+  .add('large', () => <RadioGroup size='large' { ...radioGroup }>Large</RadioGroup>);
