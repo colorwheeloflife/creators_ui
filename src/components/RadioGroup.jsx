@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Styler from '../lib/styler';
+import Radio from './Radio';
 
 export default class RadioGroup extends Component {
   static propTypes = {
-    size: PropTypes.oneOf(['small', 'large']),
     label: PropTypes.string,
     items: PropTypes.array.isRequired,
     initial: PropTypes.number,
@@ -16,7 +16,7 @@ export default class RadioGroup extends Component {
     super(props);
 
     this.state = {
-      selected: props.initial || null
+      selected: (props.initial === 0 || props.initial) ? props.initial : null
     }
   }
 
@@ -26,60 +26,42 @@ export default class RadioGroup extends Component {
 
   render() {
     const { selected } = this.state;
-    const { label, items, size, orientation, children } = this.props;
-
-    const radioGroupClass = Styler(
-      'radio_group',
-      size
-    );
+    const { label, items, orientation } = this.props;
 
     const labelClass = Styler(
       'label',
-      label ? null : 'hidden',
-      size
+      label ? null : 'hidden'
     );
 
     const itemsClass = Styler(
       'items',
-      orientation,
-      size
+      orientation
     );
 
     const itemClass = Styler(
       'item',
-      orientation,
-      size
+      orientation
     );
 
-    const radioItems = items.map((item, index) => {
-      return (
-        <div
-          className={ itemClass }
-          key={item.name}>
-          <input
-            className="radio"
-            name={item.name}
-            value={index}
-            type="radio"
-            checked={selected === index}
-            onChange={ event => this.handleSelect(index) }/>
-          <label
-            className="name"
-            key={item.name}
-            onClick={ event => this.handleSelect(index) }>
-            {item.name}
-          </label>
-        </div>
-      )
+    const radios = items.map((item, index) => {
+      const properties = {
+        key: item.name,
+        orientation,
+        item,
+        checked: selected === index,
+        onSelect: event => this.handleSelect(index)
+      }
+
+      return <Radio { ...properties } />
     });
 
     return (
-      <div className={ radioGroupClass }>
+      <div className='radio_group'>
         <div className={ labelClass }>
           { label }
         </div>
         <div className={ itemsClass }>
-          { radioItems }
+          { radios }
         </div>
       </div>
     )

@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Styler from '../lib/styler';
+import Checkbox from './Checkbox';
 
 export default class CheckboxGroup extends Component {
   static propTypes = {
     items: PropTypes.array.isRequired,
     label: PropTypes.string,
-    orientation: PropTypes.oneOf(['horizontal']),
-    size: PropTypes.oneOf(['small', 'large']),
+    orientation: PropTypes.oneOf(['horizontal'])
   };
 
   constructor(props) {
@@ -20,74 +20,51 @@ export default class CheckboxGroup extends Component {
   }
 
   handleSelect = (index) => {
-    var selected = this.state.selected;
+    const { selected } = this.state;
 
-    if (selected.indexOf(index) > -1) {
-      var placement = selected.indexOf(index);
-      selected.splice(placement, 1);
-    } else {
-      selected.push(index);
-    }
-
-    this.setState({ selected });
+    this.setState({
+      selected: selected.indexOf(index) === -1 ? [ ...selected, index ] : selected.filter(element => element !== index)
+    });
   }
 
   render() {
     const { selected } = this.state;
-    const { label, items, size, orientation, children } = this.props;
-
-    const checkboxGroupClass = Styler(
-      'checkbox_group',
-      size
-    );
+    const { label, items, orientation } = this.props;
 
     const labelClass = Styler(
       'label',
-      label ? null : 'hidden',
-      size
+      label ? null : 'hidden'
     );
 
     const itemsClass = Styler(
       'items',
-      orientation,
-      size
+      orientation
     );
 
     const itemClass = Styler(
       'item',
-      orientation,
-      size
+      orientation
     );
 
-    const checkboxItems = items.map((item, index) => {
-      return (
-        <div
-          className={ itemClass }
-          key={item.name}>
-          <input
-            className="checkbox"
-            name={item.name}
-            value={index}
-            type="checkbox"
-            checked={selected.indexOf(index) > -1}
-            onChange={ event => this.handleSelect(index) }/>
-          <label
-            className="name"
-            key={item.name}
-            onClick={ event => this.handleSelect(index) }>
-            {item.name}
-          </label>
-        </div>
-      )
+    const checkboxes = items.map((item, index) => {
+      const properties = {
+        key: item.name,
+        orientation,
+        item,
+        checked: selected.indexOf(index) > -1,
+        onSelect: event => this.handleSelect(index)
+      };
+
+      return <Checkbox { ...properties } />
     });
 
     return (
-      <div className={ checkboxGroupClass }>
+      <div className='checkbox_group'>
         <div className={ labelClass }>
           { label }
         </div>
         <div className={ itemsClass }>
-          { checkboxItems }
+          { checkboxes }
         </div>
       </div>
     )

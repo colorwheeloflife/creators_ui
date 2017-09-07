@@ -66,7 +66,3 @@ storiesOf('CheckboxGroup/Labelled', module)
 
 storiesOf('CheckboxGroup/Orientation', module)
   .add('horizontal', () => <CheckboxGroup orientation='horizontal' { ...checkboxGroup }>Horizontal</CheckboxGroup>);
-
-storiesOf('CheckboxGroup/Size', module)
-  .add('small', () => <CheckboxGroup size='small' { ...checkboxGroup }>Small</CheckboxGroup>)
-  .add('large', () => <CheckboxGroup size='large' { ...checkboxGroup }>Large</CheckboxGroup>);
