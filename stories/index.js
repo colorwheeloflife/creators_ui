@@ -46,11 +46,6 @@ storiesOf('RadioGroup/Labelled', module)
 storiesOf('RadioGroup/Orientation', module)
   .add('horizontal', () => <RadioGroup orientation='horizontal' { ...radioGroup }>Horizontal</RadioGroup>);
 
-storiesOf('RadioGroup/Size', module)
-  .add('small', () => <RadioGroup size='small' { ...radioGroup }>Small</RadioGroup>)
-  .add('large', () => <RadioGroup size='large' { ...radioGroup }>Large</RadioGroup>);
-
-
 
 
 const checkboxGroup = {
