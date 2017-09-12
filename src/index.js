@@ -1,3 +1,3 @@
 import '../styles/components.scss';
 
-export { default as  } from './components/.jsx';
+export { default as ItemCard } from './components/ItemCard.jsx';

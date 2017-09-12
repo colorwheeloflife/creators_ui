@@ -2,7 +2,17 @@ import React from 'react';
 
 import { storiesOf } from '@storybook/react';
 
-import {  } from '../src/index.js';
+import { ItemCard } from '../src/index.js';
 
-storiesOf('___/General', module)
-  .add('basic', () => <___></___>);
+
+const itemCardProperties = {
+  item: {
+    name: 'Spirit Tree',
+    artist: 'TheSpiritNectar',
+    price: 280,
+    currency: 'CA'
+  }
+}
+
+storiesOf('ItemCard/General', module)
+  .add('basic', () => <ItemCard { ...itemCardProperties }></ItemCard>);
